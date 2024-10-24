@@ -7,4 +7,5 @@ app_name = 'vehiculo'
 urlpatterns = [
     path('', views.index, name='index'),
     path('add/', VehiculoCreateView.as_view(), name='add'),
+    path('listar/', views.listar_vehiculos, name='listar'),
 ]
