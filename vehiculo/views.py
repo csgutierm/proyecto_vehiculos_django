@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import Vehiculo
-from .forms import VehiculoForm
+from .forms import VehiculoForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -29,3 +31,16 @@ def listar_vehiculos(request):
         'vehiculos_medios': vehiculos_medios,
         'vehiculos_altos': vehiculos_altos,
     })   
+    
+    
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registro exitoso.")
+            return redirect('vehiculo:index')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})    
