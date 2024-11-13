@@ -3,13 +3,16 @@
 {% block title %}Inicio - Catálogo de Vehículos{% endblock %}
 
 {% block content %}
-<h1>Bienvenido al Catálogo de Vehículos</h1>
-<p>Aquí puedes agregar y gestionar tus vehículos.</p>
-<div class="container justify-content-center mt-4">
+<div class="text-center">
+  <h1><span style='font-size:40px;'>&#128757;</span> Bienvenido al Catálogo de Vehículos <span style='font-size:40px;'>&#128663;</span></h1>
+  <p>Aquí puedes agregar y gestionar tus vehículos.</p>
+  <div class="container mt-4">
     {% load static %}
-    <img src="{% static 'vehiculo/img/reaching_sky.jpg' %}" alt="Imagen" style="width: 200px;">
+    <img
+      src="{% static 'vehiculo/img/reaching_sky.jpg' %}"
+      alt="Imagen"
+      class="imagen"
+    />
+  </div>
 </div>
-{% endblock %}
-
-
-cd proyect
+{% endblock %} cd proyect

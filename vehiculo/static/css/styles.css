@@ -1,0 +1,9 @@
+  .imagen {
+    width: 500px;
+  }
+
+  @media (max-width: 768px) {
+    .imagen {
+      width: 90%;
+    }
+  }
