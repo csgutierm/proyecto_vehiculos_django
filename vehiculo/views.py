@@ -24,7 +24,13 @@ def listar_vehiculos(request):
     vehiculos_medios = Vehiculo.objects.filter(precio__gte=10000, precio__lte=30000)
     vehiculos_altos = Vehiculo.objects.filter(precio__gt=30000)
     
-    vehiculos = Vehiculo.objects.all()
+    #vehiculos = Vehiculo.objects.all()
+    
+    vehiculos = list(Vehiculo.objects.all().values(
+        'marca', 'modelo', 'serial_carroceria', 
+        'serial_motor', 'categoria', 'precio'
+    ))
+    
     return render(request, 'vehiculo/listar_vehiculos.html', {
         'vehiculos': vehiculos,
         'vehiculos_bajos': vehiculos_bajos,

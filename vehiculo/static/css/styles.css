@@ -1,5 +1,6 @@
   .imagen {
     width: 500px;
+    border-radius: 15px;
   }
 
   @media (max-width: 768px) {

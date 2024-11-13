@@ -1,48 +1,55 @@
-<!-- vehiculo/templates/vehiculo/listar_vehiculos.html -->
 {% extends "vehiculo/base.html" %}
-
 {% block content %}
 <h1>Listado de Vehículos</h1>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Serial Carrocería</th>
-            <th>Serial Motor</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Condición de Precio</th>
-            <th>Fecha de Creación</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for vehiculo in vehiculos %}
-        <tr>
-            <td>{{ vehiculo.marca }}</td>
-            <td>{{ vehiculo.modelo }}</td>
-            <td>{{ vehiculo.serial_carroceria }}</td>
-            <td>{{ vehiculo.serial_motor }}</td>
-            <td>{{ vehiculo.categoria }}</td>
-            <td>${{ vehiculo.precio }}</td>
-            <td>
-                {% if vehiculo.precio <= 10000 %}
-                    Bajo
-                {% elif vehiculo.precio > 10000 and vehiculo.precio <= 30000 %}
-                    Medio
-                {% else %}
-                    Alto
-                {% endif %}
-            </td>
-            <td>{{ vehiculo.fecha_creacion }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="8">No hay vehículos disponibles.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div id="vehiculo-table"></div>
 
+{{ vehiculos|json_script:"vehiculos-data" }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var vehiculosData = JSON.parse(document.getElementById('vehiculos-data').textContent);
+
+        var table = new Tabulator("#vehiculo-table", {
+            data: vehiculosData,
+            layout: "fitColumns",
+            
+            pagination: true,
+            paginationSize: 10,
+            columns: [
+                {title: "Marca", field: "marca", headerTooltip:true},
+                {title: "Modelo", field: "modelo", headerTooltip:true},
+                {title: "Serial Carrocería", field: "serial_carroceria", headerTooltip:true},
+                {title: "Serial Motor", field: "serial_motor", headerTooltip:true},
+                {title: "Categoría", field: "categoria", headerTooltip:true},
+                {
+                    title: "Precio", 
+                    field: "precio", 
+                    formatter: "money", 
+                    formatterParams: {
+                        decimal: ",",
+                        thousand: ".",
+                        symbol: "$"
+                    },
+                    headerTooltip:true
+                },
+                {
+                    title: "Condición de Precio",
+                    field: "precio", //orden por el precio
+                    sorter: function(a, b, aRow, bRow, column, dir, sorterParams) {
+                        return a - b; //orden por el precio
+                    },
+                    formatter: function(cell) {
+                        let precio = cell.getData().precio;
+                        if (precio <= 10000) return "Bajo";
+                        else if (precio > 10000 && precio <= 30000) return "Medio";
+                        return "Alto";
+                    },
+                    headerTooltip:true
+                }
+            ],
+        });
+    });
+</script>
 {% endblock %}

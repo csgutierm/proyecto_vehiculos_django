@@ -7,6 +7,15 @@ class VehiculoForm(forms.ModelForm):
     class Meta:
         model = Vehiculo
         fields = ['marca', 'modelo', 'serial_carroceria', 'serial_motor', 'categoria', 'precio']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        #para agregar estilos de bootstrap según el tipo de input
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+        
+        self.fields['marca'].widget.attrs['class'] = 'form-select'
+        self.fields['categoria'].widget.attrs['class'] = 'form-select'
         
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
