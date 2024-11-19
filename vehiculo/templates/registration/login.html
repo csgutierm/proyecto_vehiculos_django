@@ -24,6 +24,32 @@
                     </p>
                 </div>
             </form>
+            <h1>Usuarios Predeterminados</h1>
+            <div>
+                <p><button popovertarget="mypopover" type="button" class="btn btn-primary" onclick="copyToClipboard('agregar')">Copiar</button> agregar (puede agregar vehículos) </p>
+                <p><button popovertarget="mypopover" type="button" class="btn btn-primary" onclick="copyToClipboard('ver_modelo')">Copiar</button> ver_modelo (puede ver el listado) </p>
+                <p><button popovertarget="mypopover" type="button" class="btn btn-primary" onclick="copyToClipboard('visita')">Copiar</button> visita (un visitante)</p>
+
+                <div id="mypopover" popover></div>
+            </div>
+
+            <h1>Clave común</h1>
+            <div>
+                <p><button popovertarget="mypopover"  type="button" class="btn btn-primary" onclick="copyToClipboard('clave123')">Copiar</button> clave123 (clave creativa)</p>
+            </div>
+
+            <h1>Admin - God</h1>
+            <p>user: leadmin</p>
+            <p>pass: checkpass</p>
+                       
+            <script>
+                function copyToClipboard(text) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        const popover = document.getElementById('mypopover');
+                        popover.textContent = 'Texto (' + text + ') copiado correctamente';
+                    });
+                }
+            </script>
         </div>
     </div>
 </div>
