@@ -9,10 +9,17 @@
   <div class="container mt-4">
     {% load static %}
     <img
-      src="{% static 'vehiculo/img/reaching_sky.jpg' %}"
+      src="{% static 'vehiculo/img/reaching_sky.avif' %}"
       alt="Imagen"
       class="imagen"
-    />
+      onclick="reproducirMusica()"
+    /><p>Clic en la imagen: 🖱️</p>
   </div>
 </div>
+<script>
+  function reproducirMusica() {
+      var audio = new Audio("{% static 'vehiculo/media/01%20Capcom%20Logo.mp3' %}");
+      audio.play();
+  }
+</script>
 {% endblock %} cd proyect
